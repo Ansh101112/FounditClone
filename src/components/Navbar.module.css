@@ -1,0 +1,37 @@
+.nav {
+    width: 100%;
+    height: 40px; /* Adjusted height */
+    background-color: #f7f2f9;
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 0; /* Ensuring it sticks to the top */
+    z-index: 1000; /* Ensuring it's above other content */
+    border-radius: 8px; /* Adjusted border-radius */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adjusted box-shadow */
+  }
+  
+  .nav1 {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Centering items vertically */
+    padding: 0 20px; /* Adjusted padding */
+  }
+  
+  .nav2 {
+    width: 23%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end; /* Align items to the right */
+    align-items: center; /* Centering items vertically */
+    padding: 0 20px; /* Adjusted padding */
+  }
+  
+  /* Adjust hover effect for text */
+  .nav1 Text:hover {
+    border-bottom: 2px solid #6e00be;
+    cursor: pointer;
+  }
+  
