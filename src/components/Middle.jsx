@@ -184,7 +184,7 @@ const Middle = () => {
     </div>
   </div>
 </section>
-<div className="flex mt-20 justify-center items-center bg-gray-300 bg-opacity-50 px-4 py-2 rounded text-gray-700 text-lg font-bold">
+<div className="flex mt-24 justify-center items-center bg-gray-300 bg-opacity-50 px-4 py-3 rounded text-gray-700 text-lg font-bold">
   <LuAlertTriangle></LuAlertTriangle><span className='font-bold text-green-400 mr-2'>Beware of Scammers </span> <p> We dont charge any money for job offers.</p><a href="#" className='cursor-pointer'>Know More</a>
 </div>
 
