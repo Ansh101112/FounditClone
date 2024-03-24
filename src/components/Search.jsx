@@ -6,6 +6,9 @@ import axios from "axios";
 import { DistrictData } from "../Data/DistrictData";
 import { LocalityData } from "../Data/LocalityData.jsx"; // Import locality data
 import { StateData } from "../Data/StateData.jsx"; // Import locality data
+import { FaLocationArrow } from "react-icons/fa";
+import { FaMapLocationDot } from "react-icons/fa6";
+import { FaLocationCrosshairs } from "react-icons/fa6";
 
 const Search = () => {
   const [selectedState, setSelectedState] = useState(""); // State selection
@@ -51,6 +54,7 @@ const Search = () => {
           flex={1}
         >
         <Box display={"flex"} alignItems={"center"}>
+        <FaLocationArrow className="m-2"/>
   {/* State dropdown */}
   <Select
     value={selectedState}
@@ -77,6 +81,7 @@ const Search = () => {
 </Box>
           {/* District dropdown */}
           <Box display={"flex"} alignItems={"center"}>
+          <FaMapLocationDot className="m-2 size-6"/>
             <Select
               value={selectedDistrict}
               onChange={(e) => setSelectedDistrict(e.target.value)}
@@ -99,6 +104,7 @@ const Search = () => {
 
           {/* Locality dropdown */}
           <Box display={"flex"} alignItems={"center"}>
+          <FaLocationCrosshairs className="m-2 size-6"/>
   <Select
     value={selectedLocality}
     onChange={(e) => setSelectedLocality(e.target.value)}
