@@ -1,71 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Button, Flex, Input, Text, Select } from "@chakra-ui/react";
 import { FaMapMarkerAlt, FaMicrophone, FaSearch } from "react-icons/fa";
 import { TiShoppingBag } from "react-icons/ti";
 import axios from "axios";
+import { DistrictData } from "../Data/DistrictData";
+import { LocalityData } from "../Data/LocalityData.jsx"; // Import locality data
+import { StateData } from "../Data/StateData.jsx"; // Import locality data
 
 const Search = () => {
-  const [jobData, setJobData] = useState([]);
-  const [showBox, setShowBox] = useState(false);
-  const [value, setValue] = useState("");
-  const [selectedExperience, setSelectedExperience] = useState("");
-  const [location, setLocation] = useState("");
-  const [filteredLocations, setFilteredLocations] = useState([]);
+  const [selectedState, setSelectedState] = useState(""); // State selection
+  const [selectedDistrict, setSelectedDistrict] = useState(""); // District selection
+  const [selectedLocality, setSelectedLocality] = useState(""); // Locality selection
+  const [districts, setDistricts] = useState([]);
+  const [localities, setLocalities] = useState([]);
 
-  // List of all Indian states
-  const indianStates = [
-    "Andhra Pradesh",
-    "Arunachal Pradesh",
-    "Assam",
-    "Bihar",
-    "Chhattisgarh",
-    "Goa",
-    "Gujarat",
-    "Haryana",
-    "Himachal Pradesh",
-    "Jharkhand",
-    "Karnataka",
-    "Kerala",
-    "Madhya Pradesh",
-    "Maharashtra",
-    "Manipur",
-    "Meghalaya",
-    "Mizoram",
-    "Nagaland",
-    "Odisha",
-    "Punjab",
-    "Rajasthan",
-    "Sikkim",
-    "Tamil Nadu",
-    "Telangana",
-    "Tripura",
-    "Uttar Pradesh",
-    "Uttarakhand",
-    "West Bengal",
-  ];
+  useEffect(() => {
+    // Fetch all districts when component mounts
+    const allDistricts = DistrictData.flat().map((district) => district.district);
+    setDistricts(allDistricts);
+  }, []);
+
+  useEffect(() => {
+    // Update localities when district changes
+    if (selectedDistrict) {
+      setLocalities(LocalityData[selectedDistrict] || []);
+    } else {
+      setLocalities([]);
+    }
+  }, [selectedDistrict]);
 
   const handleFilter = () => {
-    //will add soon
+    // Implement filtering logic
   };
-
-  // // Function to handle location autocomplete
-  // const handleLocationAutocomplete = async (input) => {
-  //   try {
-  //     const response = await axios.get(
-  //       `https://api.geoapify.com/v1/places/autocomplete?text=${input}&apiKey=bf3316b4f7b04a22a4763b63ef835e5b`
-  //     );
-  //     const locations = response.data.features.map((feature) => feature.properties.name);
-  //     setFilteredLocations(locations);
-  //   } catch (error) {
-  //     console.error("Error fetching locations:", error);
-  //   }
-  //   setLocation(input);
-  // };
-
-  // const handleLocationSelect = (selectedLocation) => {
-  //   setLocation(selectedLocation);
-  //   setFilteredLocations([]);
-  // };
 
   return (
     <Box backgroundColor={"#f7f2f9"} p={58}>
@@ -84,47 +50,37 @@ const Search = () => {
           borderRadius={"58"}
           flex={1}
         >
-          <Box
-            width="40px"
-            justifyContent={"center"}
-            paddingLeft="15px"
-            size={"55px"}
-            display={"flex"}
-            alignItems={"center"}
-            color={"purple"}
-          >
-            <FaSearch />
-          </Box>
+        <Box display={"flex"} alignItems={"center"}>
+  {/* State dropdown */}
+  <Select
+    value={selectedState}
+    onChange={(e) => {
+      setSelectedState(e.target.value);
+      setSelectedDistrict(""); // Reset selected district when state changes
+      setSelectedLocality(""); // Reset selected locality when state changes
+    }}
+    placeholder="Select State"
+    height={35}
+    borderRadius={23}
+    className="appearance-none w-46 border border-purple-600 rounded-lg px-3 cursor-pointer text-black-600  "
+    bg="white"
+    cursor="pointer"
+    _hover={{ bg: "gray.100" }}
+  >
+    {/* Options for all Indian states */}
+    {StateData.map((state) => (
+      <option key={state} value={state}>
+        {state}
+      </option>
+    ))}
+  </Select>
+</Box>
+          {/* District dropdown */}
           <Box display={"flex"} alignItems={"center"}>
-            <Input
-              variant="unstyled"
-              width={"300px"}
-              height={35}
-              borderRadius={23}
-              px={"10px"}
-              placeholder="Search by Skills, Company & Job Title"
-              type="text"
-              className=" w-56 border border-purple-600 rounded-lg px-3 cursor-pointer text-black-600"
-              onChange={handleFilter}
-            />
-          </Box>
-          <Box
-            width="40px"
-            justifyContent={"center"}
-            paddingLeft="15px"
-            size={"55px"}
-            display={"flex"}
-            alignItems={"center"}
-            color={"purple"}
-          >
-            <FaMicrophone />
-          </Box>
-          <Box display={"flex"} alignItems={"center"} position="relative">
-            {/* Dropdown for selecting location */}
             <Select
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              placeholder="Select Location"
+              value={selectedDistrict}
+              onChange={(e) => setSelectedDistrict(e.target.value)}
+              placeholder="Select District"
               height={35}
               borderRadius={23}
               className="appearance-none w-46 border border-purple-600 rounded-lg px-3 cursor-pointer text-black-600  "
@@ -132,57 +88,39 @@ const Search = () => {
               cursor="pointer"
               _hover={{ bg: "gray.100" }}
             >
-              {/* Options for all Indian states */}
-              {indianStates.map((state) => (
-                <option key={state} value={state}>
-                  {state}
+              {/* Options for all districts */}
+              {districts.map((district) => (
+                <option key={district} value={district}>
+                  {district}
                 </option>
               ))}
             </Select>
           </Box>
 
-          <Box
-            width="40px"
-            justifyContent={"center"}
-            borderLeft={"1px solid"}
-            paddingLeft="15px"
-            size={"55px"}
-            display={"flex"}
-            alignItems={"center"}
-            color={"purple"}
-          >
-            <TiShoppingBag />
-          </Box>
+          {/* Locality dropdown */}
           <Box display={"flex"} alignItems={"center"}>
-            <Select
-              height={35}
-              borderRadius={23}
-              px={"10px"}
-              placeholder="Experience"
-              value={selectedExperience}
-              onChange={(e) => setSelectedExperience(e.target.value)}
-              className="appearance-none w-56 border border-purple-600 rounded-lg px-3 cursor-pointer text-zinc-600 focus:outline-none focus:border-purple-600"
-            >
-              <option
-                value="1"
-                className="text-purple-600 font-semibold rounded-lg"
-              >
-                0-1 year
-              </option>
-              <option value="2" className="text-purple-600 font-semibold">
-                1-2 years
-              </option>
-              <option value="3" className="text-purple-600 font-semibold">
-                2-3 years
-              </option>
-              <option value="4" className="text-purple-600 font-semibold">
-                3-4 years
-              </option>
-              <option value="5" className="text-purple-600 font-semibold">
-                5+ years
-              </option>
-            </Select>
-          </Box>
+  <Select
+    value={selectedLocality}
+    onChange={(e) => setSelectedLocality(e.target.value)}
+    placeholder="Select Locality"
+    height={35}
+    borderRadius={23}
+    className="appearance-none w-46 border border-purple-600 rounded-lg px-3 cursor-pointer text-black-600  "
+    bg="white"
+    cursor="pointer"
+    _hover={{ bg: "gray.100" }}
+  >
+    {/* Options for localities based on selected district */}
+    {selectedDistrict &&
+      LocalityData.localities.map((locality) => (
+        <option key={locality.pincode} value={locality.name}>
+          {locality.name}
+        </option>
+      ))}
+  </Select>
+</Box>
+
+          {/* Search button */}
           <Box>
             <button
               type="submit"
@@ -193,36 +131,6 @@ const Search = () => {
           </Box>
         </Flex>
       </Flex>
-
-      {showBox && (
-        <Box
-          border={"1px solid purple"}
-          borderRadius={5}
-          w={"25%"}
-          ml={180}
-          p={2}
-          backgroundColor={"white"}
-          overflow={"hidden"}
-          zIndex={"999"}
-          position={"absolute"}
-        >
-          {jobData.map((item) => (
-            <Box key={item.id}>
-              <Flex p={1} justifyContent={"space-between"}>
-                <Box textAlign={"start"}>
-                  <Text fontWeight={"semibold"} color={"purple"}>
-                    {item.job_title}
-                  </Text>
-                  <Text fontSize={"xx-small"}>Job Id : {item._id}</Text>
-                </Box>
-                <Box h={10} w={20}>
-                  <Image src={item.image} />
-                </Box>
-              </Flex>
-            </Box>
-          ))}
-        </Box>
-      )}
     </Box>
   );
 };
