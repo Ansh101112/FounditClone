@@ -33,8 +33,29 @@ const Search = () => {
   }, [selectedDistrict]);
 
   const handleFilter = () => {
-    // Implement filtering logic
+    if (selectedState === "Uttar Pradesh" && selectedDistrict === "Gorakhpur") {
+      // Filter based on Gorakhpur district in Uttar Pradesh
+      // Show only locality data for Gorakhpur
+      setLocalities(LocalityData[selectedDistrict] || []);
+    } else if (selectedState === "Uttar Pradesh") {
+      // Filter based on Uttar Pradesh state
+      // Show only district data for Uttar Pradesh
+      const allDistricts = DistrictData.flat().map((district) => district.district);
+      setDistricts(allDistricts);
+      setLocalities([]); // Clear locality data
+    } else {
+      // Reset filters if neither Uttar Pradesh nor Gorakhpur district is selected
+      setSelectedDistrict("");
+      setSelectedLocality("");
+      setDistricts([]);
+      setLocalities([]);
+    }
   };
+
+  useEffect(() => {
+    handleFilter();
+  }, [selectedState, selectedDistrict]);
+  
 
   return (
     <Box backgroundColor={"#f7f2f9"} p={58}>
@@ -80,31 +101,36 @@ const Search = () => {
   </Select>
 </Box>
           {/* District dropdown */}
-          <Box display={"flex"} alignItems={"center"}>
-          <FaMapLocationDot className="m-2 size-6"/>
-            <Select
-              value={selectedDistrict}
-              onChange={(e) => setSelectedDistrict(e.target.value)}
-              placeholder="Select District"
-              height={35}
-              borderRadius={23}
-              className="appearance-none w-46 border border-purple-600 rounded-lg px-3 cursor-pointer text-black-600  "
-              bg="white"
-              cursor="pointer"
-              _hover={{ bg: "gray.100" }}
-            >
-              {/* Options for all districts */}
-              {districts.map((district) => (
-                <option key={district} value={district}>
-                  {district}
-                </option>
-              ))}
-            </Select>
-          </Box>
+         {/* District dropdown */}
+<Box display={"flex"} alignItems={"center"}>
+  <FaMapLocationDot className="m-2 size-6"/>
+  <Select
+    value={selectedDistrict}
+    onChange={(e) => setSelectedDistrict(e.target.value)}
+    placeholder="Select District"
+    height={35}
+    borderRadius={23}
+    className="appearance-none w-46 border border-purple-600 rounded-lg px-3 cursor-pointer text-black-600  "
+    bg="white"
+    cursor="pointer"
+    _hover={{ bg: "gray.100" }}
+  >
+
+    {selectedState === "Uttar Pradesh" ? (
+      districts.map((district) => (
+        <option key={district} value={district}>
+          {district}
+        </option>
+      ))
+    ) : (
+      <option value="">No districts available for this state</option>
+    )}
+  </Select>
+</Box>
 
           {/* Locality dropdown */}
-          <Box display={"flex"} alignItems={"center"}>
-          <FaLocationCrosshairs className="m-2 size-6"/>
+<Box display={"flex"} alignItems={"center"}>
+  <FaLocationCrosshairs className="m-2 size-6"/>
   <Select
     value={selectedLocality}
     onChange={(e) => setSelectedLocality(e.target.value)}
@@ -117,14 +143,20 @@ const Search = () => {
     _hover={{ bg: "gray.100" }}
   >
     {/* Options for localities based on selected district */}
-    {selectedDistrict &&
+    {selectedDistrict === "Gorakhpur" && LocalityData.localities ? (
       LocalityData.localities.map((locality) => (
         <option key={locality.pincode} value={locality.name}>
           {locality.name}
         </option>
-      ))}
+      ))
+    ) : (
+      <option value="">No localities available</option>
+    )}
   </Select>
 </Box>
+
+
+
 
           {/* Search button */}
           <Box>
