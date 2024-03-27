@@ -6,33 +6,64 @@ import Middle from '../components/Middle'
 import Footer from '../components/Footer'
 import JobCard from '../Jobcard/JobCard'
 import { db } from '../Firebase/FirebaseConfig.js'
-import {collection, query, getDocs} from 'firebase/firestore'
+import jobdata from '../Data/JobData'
+import {collection, query, getDocs, doc, orderBy, where} from 'firebase/firestore'
 
 const Home = () => {
-  const [jobs, setJobs] = useState([]);
 
-  const fetchJobs = async () => {
-    const req = await db.collection('jobs').orderBy('postedOn', 'desc').get();
-    const jobData = req.docs.map((job) => job.data());
-    console.log(jobData); // Optional: You can remove this line if you don't need to log the data
-    setJobs(jobData); // Set the fetched job data to the state variable
-  };
+  const[jobs,setJob]=useState([]);
+  const[customSearch,setCustomSearch]=useState(false);
+
+  const fetchJobs = async()=>{
+    setCustomSearch(false)
+    const tempjobs = []
+    const jobsref = query(collection(db,"jobs"));
+    const q = query(jobsref, orderBy('postedOn',"desc"));
+    const result = await getDocs(q);
+    result.forEach((job)=>{
+      tempjobs.push({
+        ...job.data(),
+        id: job.id,
+        postedOn: job.data().postedOn.toDate()
+      })
+    });
+    setJob(tempjobs)
+  }
+
+  const fetchJobsCustom = async(jobCriteria)=>{
+    setCustomSearch(true)
+    const tempjobs = []
+    const jobsref = query(collection(db,"jobs"));
+    const q = query(jobsref, where("type", "==",jobCriteria.type),where("title","==",jobCriteria.title),where("experience","==",jobCriteria.experience),where("location","==",jobCriteria.location),orderBy('postedOn',"desc"));
+    const result = await getDocs(q);
+    result.forEach((job)=>{
+      tempjobs.push({
+        ...job.data(),
+        id: job.id,
+        postedOn: job.data().postedOn.toDate()
+      })
+    });
+    setJob(tempjobs)
+  }
+
 
   useEffect(() => {
-    fetchJobs();
-  }, []);
+    fetchJobs()
+  }, [])
+  
+
 
   return (
     <>
       <Navbar />
-      <Search />
-      <Grid container justify='center'>
-        <Grid item xs={11}>
-          {jobs.map((job) => (
-            <JobCard key={job.id} {...job}>{job}</JobCard>
-          ))}
-        </Grid>
-      </Grid>
+      <Search fetchJobsCustom={fetchJobsCustom}/>
+      {
+        customSearch && <button onClick={fetchJobs} className='bg-blue-500 px-10 py-2 rounded-md text-white'>Clear Filters</button>
+      }
+      {
+        jobs.map(jobdata=><JobCard key={jobdata.id} {...jobdata}></JobCard>)
+      }
+      
       <Middle />
       <Footer />
     </>
