@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Text } from "@chakra-ui/react"; // Importing Button and Text from Chakra UI
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import { useNavigate } from "react-router-dom";
 
@@ -19,20 +19,7 @@ const Navbar = () => {
           borderRadius={'55'}
           onClick={()=>{navigate('/')}}
         />
-
-        <Text
-          fontSize="lg"
-          fontWeight="bold"
-          mt="10px"
-          cursor="pointer"
-          borderBottom="2px solid transparent"
-          _hover={{ borderBottom: "2px solid #6e00be" }}
-          className="mr-4"
-        >
-          Jobs
-        </Text>
-        
-        <Text
+      <Text
           fontSize="lg"
           fontWeight="bold"
           mt="10px"
@@ -74,7 +61,7 @@ const Navbar = () => {
           _hover={{ borderBottom: "2px solid #6e00be" }}
           className="mr-4"
         >
-            Network
+           <NavLink to='/job-posting'> Post a Job </NavLink>
         </Text>
       </div>
       <div className="flex items-center">
