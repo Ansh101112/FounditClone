@@ -29,7 +29,7 @@
     "swiper": "^11.0.7"
   },
   "devDependencies": {
-    "@types/react": "^18.2.64",
+    "@types/react": "^18.2.67",
     "@types/react-dom": "^18.2.21",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.18",
