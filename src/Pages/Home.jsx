@@ -30,6 +30,11 @@ const Home = () => {
     setJob(tempjobs)
   }
 
+  useEffect(() => {
+    fetchJobs()
+  }, [])
+  
+
   const fetchJobsCustom = async(jobCriteria)=>{
     setCustomSearch(true)
     const tempjobs = []
@@ -46,10 +51,6 @@ const Home = () => {
     setJob(tempjobs)
   }
 
-
-  useEffect(() => {
-    fetchJobs()
-  }, [])
   
 
 
