@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 
 const JobCard = (props) => {
   const date1 = dayjs(Date.now());
-  const diffInDays = date1.diff('2024-03-03','day')
+  const diffInDays = date1.diff(dayjs(props.postedOn), 'day');
 
   return (
     <>
@@ -14,12 +14,12 @@ const JobCard = (props) => {
             <p>{props.type} &#x2022; {props.experience} &#x2022; {props.location}</p>
           </div>
           <div className="flex items-center gap-2">
-              {props.skills.map((skill)=>
-                <p className="text-grey-500 py-1 px-2 rounded-md border border-black">{skill}</p>
+              {Array.isArray(props.skills) && props.skills.map((skill, index) =>
+                <p key={index} className="text-grey-500 py-1 px-2 rounded-md border border-black">{skill}</p>
               )}
           </div>
           <div className="flex items-center gap-4">
-              <p className="text-grey-500 ">Posted {diffInDays >1? `${diffInDays} days` : `${diffInDays} day`}ago</p>
+          <p className="text-grey-500 ">Posted {diffInDays > 0 ? `${diffInDays} days ago` : 'today'}.</p>
               <a href={props.link}><button className="text-black-500 bg-green-400 border border-blue-500 px-10 py-2 rounded-md">Apply Now</button></a>
           </div>
         </div>

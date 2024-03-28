@@ -10,8 +10,9 @@ const JobModal = () => {
     experience: '',
     location: '',
     link: '',
-    skill: [],
+    skills: [], // Changed from skill to skills
     company: '',
+    postedOn: ''
   });
 
   const handleChange = (e) => {
@@ -33,8 +34,9 @@ const JobModal = () => {
         experience: '',
         location: '',
         link: '',
-        skill: [],
+        skills: [], // Changed from skill to skills
         company: '',
+        postedOn: ''
       });
     } catch (error) {
       console.error('Error adding document: ', error);
@@ -45,14 +47,14 @@ const JobModal = () => {
     const skills = e.target.value.split(',').map(skill => skill.trim());
     setJobDetails({
       ...jobDetails,
-      skill: skills
+      skills: skills // Changed from skill to skills
     });
   };
 
   return (
     <>
       <Navbar />
-      <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
+      <div className="min-h-screen p-6 flex items-center justify-center bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-yellow-100 via-yellow-300 to-yellow-500">
         <div className="container max-w-screen-lg mx-auto">
           <div>
             <h2 className="font-semibold text-xl text-gray-600">Post Job Here</h2>
@@ -62,35 +64,45 @@ const JobModal = () => {
               <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
                 {/* Job details form */}
                 <div className="lg:col-span-2">
+                  <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-2">                    
+                    <div className="lg:col-span-2">
                   <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-2">
                     <div>
                       <label htmlFor="title">Job Title</label>
-                      <input type="text" name="title" id="title" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={jobDetails.title} onChange={handleChange} />
+                      <input type="text" name="title" id="title" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={jobDetails.title} onChange={handleChange} required />
                     </div>
                     <div>
                       <label htmlFor="type">Job Type</label>
-                      <input type="text" name="type" id="type" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={jobDetails.type} onChange={handleChange} />
+                      <input type="text" name="type" id="type" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={jobDetails.type} onChange={handleChange} required />
                     </div>
                     <div>
                       <label htmlFor="experience">Experience</label>
-                      <input type="text" name="experience" id="experience" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={jobDetails.experience} onChange={handleChange} />
+                      <input type="text" name="experience" id="experience" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={jobDetails.experience} onChange={handleChange} required />
                     </div>
                     <div>
                       <label htmlFor="location">Location</label>
-                      <input type="text" name="location" id="location" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={jobDetails.location} onChange={handleChange} />
+                      <input type="text" name="location" id="location" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={jobDetails.location} onChange={handleChange} required />
                     </div>
                     <div>
                       <label htmlFor="link">Job Link</label>
-                      <input type="text" name="link" id="link" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={jobDetails.link} onChange={handleChange} />
+                      <input type="text" name="link" id="link" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={jobDetails.link} onChange={handleChange} required />
                     </div>
                     <div>
                       <label htmlFor="company">Company</label>
-                      <input type="text" name="company" id="company" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={jobDetails.company} onChange={handleChange} />
+                      <input type="text" name="company" id="company" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={jobDetails.company} onChange={handleChange} required />
                     </div>
                     <div>
-                      <label htmlFor="skill">Skills (comma separated)</label>
-                      <input type="text" name="skill" id="skill" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={jobDetails.skill.join(', ')} onChange={handleSkillChange} />
+                      <label htmlFor="skills">Skills (comma separated)</label>
+                      <input type="text" name="skills" id="skills" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={jobDetails.skills.join(', ')} onChange={handleSkillChange} required />
                     </div>
+                    {/* Remaining input fields */}
+                    <div>
+                      <label htmlFor="postedOn">Apply By</label>
+                      <input type="date" name="postedOn" id="postedOn" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value={jobDetails.postedOn} onChange={handleChange} required />
+                    </div>
+                    </div>
+                    </div>
+
                   </div>
                 </div>
               </div>
