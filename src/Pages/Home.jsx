@@ -1,5 +1,4 @@
 import React,{useState,useEffect} from 'react'
-import { Grid } from '@material-ui/core'
 import Navbar from '../components/Navbar'
 import Search from '../components/Search'
 import Middle from '../components/Middle'
@@ -50,8 +49,6 @@ const Home = () => {
     });
     setJob(tempjobs)
   }
-
-  
 
 
   return (
