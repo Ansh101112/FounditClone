@@ -8,13 +8,19 @@ import Signup from "./Pages/Signup";
 import JobModal from "./Pages/JobModal";
 
 const App = () => {
+    
+  const postJobs = async (jobDetails)=>{
+    await db.collection('jobs').add({
+      ...jobDetails,
+      postedOn: app.db.FieldValue.serverTimeStamp()})
+  }
   return (
 
 // All routing here
 
       <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path="/job-posting" element={<JobModal></JobModal>} />
+        <Route path="/job-posting" element={<JobModal postJobs={postJobs}></JobModal>} />
         <Route path="*" element={<PageNotFound/>} />
         <Route path="/login" element={<Login></Login>} />
         <Route path="/signup" element={<Login></Login>} />

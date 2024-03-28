@@ -16,6 +16,8 @@ const handleChange=(e)=>{
   }))
 }
 
+console.log(jobCriteria);
+
 const search=async()=>{
   await props.fetchJobsCustom(jobCriteria);
 }
