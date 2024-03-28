@@ -47,6 +47,7 @@ const search=async()=>{
     </select>
     <button onClick={search} className='w-64 bg-blue-600 text-white py-3 rounded-md'>Search</button>
   </div>
+  <jobCard></jobCard>
    </>
   );
 };
