@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import { db } from '../Firebase/FirebaseConfig.js';
 import { collection, addDoc } from 'firebase/firestore';
+import {toast} from 'react-hot-toast';
 
 const JobModal = () => {
   const [jobDetails, setJobDetails] = useState({
@@ -27,6 +28,8 @@ const JobModal = () => {
     try {
       const docRef = await addDoc(collection(db, 'jobs'), jobDetails);
       console.log('Document written with ID: ', docRef.id);
+      toast.success('Job posted successfully!');
+      alert("Job posted successfully!");
       // Clear the form after submission
       setJobDetails({
         title: '',
@@ -34,12 +37,14 @@ const JobModal = () => {
         experience: '',
         location: '',
         link: '',
-        skills: [], // Changed from skill to skills
+        skills: [],
         company: '',
         postedOn: ''
       });
     } catch (error) {
       console.error('Error adding document: ', error);
+      toast.error('Error posting job. Please try again.');
+      alert("Try again after sometime.");
     }
   };
 
