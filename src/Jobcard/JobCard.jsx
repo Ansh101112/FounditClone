@@ -1,9 +1,23 @@
 import React from "react";
-import dayjs from 'dayjs'
+import { useNavigate } from "react-router-dom";
+import dayjs from 'dayjs';
+
 
 const JobCard = (props) => {
+  const navigate = useNavigate();
   const date1 = dayjs(Date.now());
   const diffInDays = date1.diff(dayjs(props.postedOn), 'day');
+
+  const handleApplyClick = () => {
+    
+    const isLoggedIn = false; 
+    if (!isLoggedIn) {
+      navigate('/login'); 
+    } else {
+
+      console.log("Apply button clicked.");
+    }
+  };
 
   return (
     <>
@@ -19,8 +33,8 @@ const JobCard = (props) => {
               )}
           </div>
           <div className="flex items-center gap-4">
-          <p className="text-grey-500 ">Posted {diffInDays > 0 ? `${diffInDays} days ago` : 'today'}.</p>
-              <a href={props.link}><button className="text-black-500 bg-green-400 border border-blue-500 px-10 py-2 rounded-md">Apply Now</button></a>
+            <p className="text-grey-500 ">Posted {diffInDays > 0 ? `${diffInDays} days ago` : 'today'}.</p>
+            <button onClick={handleApplyClick} className="text-black-500 bg-green-400 border border-blue-500 px-10 py-2 rounded-md">Apply Now</button>
           </div>
         </div>
       </div>
