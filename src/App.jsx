@@ -23,7 +23,7 @@ const App = () => {
         <Route path="/job-posting" element={<JobModal postJobs={postJobs}></JobModal>} />
         <Route path="*" element={<PageNotFound/>} />
         <Route path="/login" element={<Login></Login>} />
-        <Route path="/signup" element={<Login></Login>} />
+        <Route path="/signup" element={<Signup></Signup>} />
         <Route path="/employerlogin" element={<Login></Login>} />
       </Routes>
   );
