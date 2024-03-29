@@ -81,19 +81,21 @@ const Navbar = () => {
         >
           Learn
         </Text>
-        <NavLink to='/job-posting'>
-          <Text
-            fontSize="lg"
-            fontWeight="bold"
-            mt="10px"
-            cursor="pointer"
-            borderBottom="2px solid transparent"
-            _hover={{ borderBottom: "2px solid #6e00be" }}
-            className="mr-4"
-          >
-            Post a Job
-          </Text>
-        </NavLink>
+        {user && user.email === 'admin@jr.com' && (
+          <NavLink to='/job-posting'>
+            <Text
+              fontSize="lg"
+              fontWeight="bold"
+              mt="10px"
+              cursor="pointer"
+              borderBottom="2px solid transparent"
+              _hover={{ borderBottom: "2px solid #6e00be" }}
+              className="mr-4"
+            >
+              Post a Job
+            </Text>
+          </NavLink>
+        )}
       </div>
       {user ? (
         <div>
@@ -107,16 +109,27 @@ const Navbar = () => {
               onClick={toggleDropdown}
             >
               <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-  Profile
-</button> 
+                  Profile
+              </button> 
             </Text>
             {showDropdown && (
-              <div className="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-md z-10">
-                <NavLink to="/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</NavLink>
-                <div className="border-t border-gray-200"></div>
-                <button onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">Logout</button>
-              </div>
-            )}
+  <div className="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-md z-10">
+    {user && user.email === 'admin@jr.com' ? (
+      <>
+        <NavLink to="/admin/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Admin Dashboard</NavLink>
+        <div className="border-t border-gray-200"></div>
+        <button onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">Logout</button>
+      </>
+    ) : (
+      <>
+        <NavLink to="/user/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">User Dashboard</NavLink>
+        <div className="border-t border-gray-200"></div>
+        <button onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">Logout</button>
+      </>
+    )}
+  </div>
+)}
+
           </div>
         </div>
       ) : (

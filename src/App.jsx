@@ -6,6 +6,8 @@ import PageNotFound from "./Pages/PageNotFound";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import JobModal from "./Pages/JobModal";
+import Dashboard from "./Pages/Dashboard";
+import UserDashboard from "./Pages/UserDashboard";
 
 const App = () => {
     
@@ -24,6 +26,8 @@ const App = () => {
         <Route path="*" element={<PageNotFound/>} />
         <Route path="/login" element={<Login></Login>} />
         <Route path="/signup" element={<Signup></Signup>} />
+        <Route path="/admin/dashboard" element={<Dashboard name='ansh'></Dashboard>} />
+        <Route path="/user/dashboard" element={<UserDashboard></UserDashboard>} />
         <Route path="/employerlogin" element={<Login></Login>} />
       </Routes>
   );

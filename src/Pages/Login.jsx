@@ -5,7 +5,6 @@ import { auth, db, app } from '../Firebase/FirebaseConfig'; // Importing auth fr
 import 'firebase/auth';
 import { NavLink } from 'react-router-dom';
 
-
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -16,27 +15,20 @@ const Login = () => {
     try {
       const userCredential = await auth.signInWithEmailAndPassword(email, password);
       const user = userCredential.user;
-      if (user) {
-        // Fetch additional user data, such as role, from Firebase
-        const userDoc = await db.collection('users').doc(user.uid).get();
-        if (userDoc.exists) {
-          const userData = userDoc.data();
-          const isAdmin = userData.isAdmin; // Assuming you have a field named 'isAdmin' in your user document
-          if (isAdmin) {
-            navigate('/admin');
-          } else {
-            navigate('/user');
-          }
-        } else {
-          console.error('User data not found');
-        }
+
+      // Check if the logged-in user is an admin
+      if (user.email === 'admin@jr.com') {
+        // Redirect admin to the dashboard
+        navigate('/admin/dashboard');
+      } else {
+        // Redirect regular users to a different page
+        navigate('/user-dashboard');
       }
     } catch (error) {
       alert("Wrong Email or password")
       console.error('Error signing in:', error.message);
     }
   };
-  
 
   return (
     <>
