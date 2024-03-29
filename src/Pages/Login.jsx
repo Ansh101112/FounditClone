@@ -22,7 +22,7 @@ const Login = () => {
         navigate('/admin/dashboard');
       } else {
         // Redirect regular users to a different page
-        navigate('/user-dashboard');
+        navigate('/user/dashboard');
       }
     } catch (error) {
       alert("Wrong Email or password")

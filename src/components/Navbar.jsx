@@ -81,21 +81,6 @@ const Navbar = () => {
         >
           Learn
         </Text>
-        {user && user.email === 'admin@jr.com' && (
-          <NavLink to='/job-posting'>
-            <Text
-              fontSize="lg"
-              fontWeight="bold"
-              mt="10px"
-              cursor="pointer"
-              borderBottom="2px solid transparent"
-              _hover={{ borderBottom: "2px solid #6e00be" }}
-              className="mr-4"
-            >
-              Post a Job
-            </Text>
-          </NavLink>
-        )}
       </div>
       {user ? (
         <div>

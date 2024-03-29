@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./Pages/Home";
 import PageNotFound from "./Pages/PageNotFound";
@@ -10,26 +10,26 @@ import Dashboard from "./Pages/Dashboard";
 import UserDashboard from "./Pages/UserDashboard";
 
 const App = () => {
-    
-  const postJobs = async (jobDetails)=>{
+  const postJobs = async (jobDetails) => {
     await db.collection('jobs').add({
       ...jobDetails,
-      postedOn: app.db.FieldValue.serverTimeStamp()})
-  }
+      postedOn: app.db.FieldValue.serverTimestamp()
+    });
+  };
+
   return (
-
-// All routing here
-
+    <>
       <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/job-posting" element={<JobModal postJobs={postJobs}></JobModal>} />
-        <Route path="*" element={<PageNotFound/>} />
-        <Route path="/login" element={<Login></Login>} />
-        <Route path="/signup" element={<Signup></Signup>} />
-        <Route path="/admin/dashboard" element={<Dashboard name='ansh'></Dashboard>} />
-        <Route path="/user/dashboard" element={<UserDashboard></UserDashboard>} />
-        <Route path="/employerlogin" element={<Login></Login>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/job-posting" element={<JobModal postJobs={postJobs} />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/admin/dashboard" element={<Dashboard name='Ansh' />} />
+        <Route path="/user/dashboard" element={<UserDashboard name='User' />} />
+        <Route path="/employerlogin" element={<Login />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
+      </>
   );
 };
 
