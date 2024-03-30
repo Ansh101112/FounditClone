@@ -22,11 +22,6 @@ Welcome to our Job Portal Website! This platform is built using React.js for the
 
 ![Screenshot (45)](https://github.com/Ansh101112/FounditClone/assets/87803348/09ca3a12-c2a2-444d-82e2-573cdcc04f7b)
 
-![Screenshot (47)](https://github.com/Ansh101112/FounditClone/assets/87803348/88217efb-5820-4edf-85ef-5ef78f1143a0)
-
-
-
-
 ## Technologies Used
 
 - React.js
