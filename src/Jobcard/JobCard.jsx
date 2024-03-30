@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import dayjs from 'dayjs';
-
+import { isLoggedIn } from "../Firebase/authUtils.jsx";
 
 const JobCard = (props) => {
   const navigate = useNavigate();
@@ -9,13 +9,16 @@ const JobCard = (props) => {
   const diffInDays = date1.diff(dayjs(props.postedOn), 'day');
 
   const handleApplyClick = () => {
-    
-    const isLoggedIn = false; 
-    if (!isLoggedIn) {
-      navigate('/login'); 
+    if (!isLoggedIn()) {
+      navigate('/login');
     } else {
-
-      console.log("Apply button clicked.");
+      let link = props.link;
+      // Check if the link includes a protocol
+      if (!/^https?:\/\//i.test(link)) {
+        // If not, prepend "https://"
+        link = `https://${link}`;
+      }
+      window.open(link);
     }
   };
 
