@@ -55,3 +55,7 @@ And Create the project on Firebase Console
 npm run div
 ```
 Check the application on port 5173 or 3000 on your supporting system.
+
+# For admin login
+email: admin@jr.com
+pwd: 123456
