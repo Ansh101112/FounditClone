@@ -20,10 +20,27 @@ Welcome to our Job Portal Website! This platform is built using React.js for the
 
 ## Installation
 
-1. Clone the repository:
 
+
+1. Clone the repository:
 ```bash
 git clone https://github.com/yourusername/job-portal.git
-
-# Example additional step
+```
+2. Change the Directory and install node modules
+```bash
+cd job-portal
+npm install
+```
+## Example additional step
+```bash
 npm run build
+```
+## Firebase Setup
+Config the Firebase API keys and change them according to your one
+And Create the project on Firebase Console
+
+## Run Application
+```bash
+npm run div
+```
+Check the application on port 5173 or 3000 on your supporting system.
