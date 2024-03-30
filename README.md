@@ -25,3 +25,5 @@ Welcome to our Job Portal Website! This platform is built using React.js for the
 ```bash
 git clone https://github.com/yourusername/job-portal.git
 
+# Example additional step
+npm run build
